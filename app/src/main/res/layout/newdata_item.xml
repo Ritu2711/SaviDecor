@@ -1,0 +1,50 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:layout_width="150dp"
+    card_view:contentPadding="7dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardElevation="3dp"
+    card_view:cardMaxElevation="3dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardUseCompatPadding="true"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/ivv"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:clickable="true"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/SubCatImage"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLines="2"
+            android:lines="2"
+            android:textSize="13sp"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+
+            android:id="@+id/subNAME" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

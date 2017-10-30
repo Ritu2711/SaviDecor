@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name">Savi Decor</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="nav_item_home">Category1</string>
+    <string name="nav_item_friends">Category2</string>
+    <string name="price">$</string>
+    <string name="nav_item_notifications">Category3</string>
+    <string name="nav_item_home2">Category4</string>
+    <string name="nav_item_home3">Category5</string>
+    <string name="nav_item_home4">Category6</string>
+
+    <string name="S2">Price:Low-high</string>
+    <string name="S3">Price:High-Low</string>
+    <string name="S4">Name:A-Z</string>
+    <string name="S5">Name:Z-A</string>
+    <integer name="swing_anim_time">750</integer>
+    <string name="myd">%1$s</string>
+    <string name="disc">Movies Neon Sign 1024 Wide x 3 Deep , is 100% Handcrafted with Real Glass Tube Neon Sign. !!! Made in USA !!! Colors on the sign are Red. Movies Neon Sign is high impact, eye catching, real glass tube neon sign. This characteristic glow can attract customers like nothing else, virtually burning your identity into the minds of potential and future customers. Movies Neon Sign can be left on 24 hours a day, seven days a week, 365 days a year for decades. There is no light form in existence that has the visual impact of neon.</string>
+    <string name="rs">\u20B9</string>
+
+    <string name="nullPrice">"Inquire For Price"</string>
+    <string name="customerSAYS">What our customers say:</string>
+    <string-array name="SORTITEMS" >
+        <item>@string/S2</item>
+        <item>@string/S3</item>
+        <item>@string/S4</item>
+        <item>@string/S5</item>
+    </string-array>
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_home2</item>
+        <item>@string/nav_item_home3</item>
+        <item>@string/nav_item_home4</item>
+    </string-array>
+    <string name="desc">We are the leading manufacturer of affordable neon signs neon lights for business, home bars and game rooms. We carry the largest neon sign, neon light and custom neon sign selection available anywhere. We carry over 1,000 neon signs, neon lights and custom neon signs.\n\nMost of our business, beer, neon lights, neon bar signs, college, sports neon signs, neon atm signs, neon outdoor signs, restaurant neon signs, neon coffee signs, hair neon signs, nail neon signs and custom neon signs can all be custom designed to your unique requirements.\n\n
+
+We carry the largest selection of Neon Open Signs available anywhere, our open neon signs are priced from $69.\n\n
+
+Neon border tubing is a great compliment to our neon signs and neon lights as well as a great attention getter\n\n
+
+Our neon clocks go great with any of our neon beer signs and neon bar signs. Custom neon clocks are a great way to advertise and are as unique as your business or home, add one to your business or game room today.\n\n
+
+We can make just about any custom neon sign you dream up, just send us a picture of how you would like your custom neon sign to look.\n\n
+
+We are the leading wholesale open neon sign manufacturer, we are also the best source for neon signs and neon lights at wholesale prices\n\n
+
+Our neon bar lights are the best and brightest neon bar lights available anywhere. Our neon bar lights are the centerpiece of many home bars and game rooms across the country.\n\n
+
+Neon signs are one of the best and brightest forms of advertising; neon signs last for many years when cared for properly.\n\n
+
+We have the largest selection of neon clocks, custom neon clocks, Coke neon clocks, John Deere neon clocks, Ford, Chevy, Yankees and Mustang neon clocks. All of our neon clocks will add excitement to any room. Neon clocks look great with our Tiki bar neon signs as well as any of our  signs for Budweiser neon beer signs, Miller neon beer signs, Corona neon beer signs and many other beer manufacturers.\n\n
+
+Channel letters - We can take care of any of your needs for channel letters for both neon and LED. Our Channel letters are the best quality with the lowest price available anywhere. Channel letters attract new business day or night.\n\n
+
+All of our LED signs are the brightest LED signs available anywhere. LED has emerged as a new and vibrant way to attract new business. Try one of our LED signs and see for yourself.</string>
+
+    <string name="addtocart">Add to cart</string>
+    <string name="customize">Customize</string>
+    <string name="choosepost">Choose option below.</string>
+    <string name="createpicture">Create your own Picture</string>
+    <string name="submitform">Submit form</string>
+    <string name="imgDescCAM">ImageCamera</string>
+    <string name="camNAME">Name</string>
+    <string name="camMAIL">Email</string>
+    <string name="camPhone">Phone</string>
+    <string name="camSEND">Send</string>
+    <string name="camCLOSE">ImageCameraclose</string>
+    <string name="cartIMG">ImageCARTProduct</string>
+    <string name="cartRemoveIMG">CartProductRemoveImage</string>
+    <string name="cartPlusIMG">CartProductPlusImage</string>
+    <string name="viewMoreCart">ViewMore</string>
+    <string name="EmptyCart">No product in cart!</string>
+    <string name="GrandTotal">Grand Total</string>
+    <string name="TotalCurrency">Rs</string>
+    <string name="ProceedPayment">Proceed to Payment</string>
+    <string name="CustomDialogTitle">Customize Product.</string>
+    <string name="CustomDialogText">What do you want to customize?</string>
+    <string name="CustomSubmit">Submit</string>
+    <string name="ProdDesc">Description</string>
+    <string name="ProdDetailMore">View Details &#8212;></string>
+    <string name="ProdImg1">ProductImageOne</string>
+    <string name="ProdImg">ProductImage</string>
+    <string name="AppLogo">AppLogoIcon</string>
+    <string name="Welcome">Welcome</string>
+    <string name="SubCatImage">SubCategoryImage</string>
+    <string name="ProdSort">SORT</string>
+    <string name="LayoutChangeIMG">ChangeLayoutImage</string>
+    <string name="ProdFullImg">ProductImageFull</string>
+    <string name="Title">Title</string>
+    <string name="Searchicon">search</string>
+    <string name="Carticon">cart</string>
+    <string name="Optionsicon">options</string>
+    <string name="Closeicon">close</string>
+    <string name="Checkout">Checkout</string>
+    <string name="action_settings">Settings</string>
+    <string name="Callicon">Call</string>
+</resources>

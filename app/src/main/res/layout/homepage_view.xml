@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/homeLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swypel"
+        android:layout_margin="11dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+        <!-- Bottom View Start-->
+        <LinearLayout
+            android:id="@+id/bottom_wrapper"
+            android:layout_width="360dp"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_height="match_parent">
+            <!--What you want to show-->
+        </LinearLayout>
+        <!-- Bottom View End-->
+
+        <!-- Surface View Start -->
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/banner_effect"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/bannertv"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/badgecolor"
+                android:textSize="20sp"
+                android:textStyle="bold|italic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!--What you want to show in SurfaceView-->
+        </LinearLayout>
+        <!-- Surface View End -->
+    </com.daimajia.swipe.SwipeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pRecycle"
+        android:layout_below="@id/swypel"
+        android:layout_marginTop="15dp"
+        android:scrollbars="none"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingEnd="11dp"
+        android:paddingStart="11dp"
+android:requiresFadingEdge="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/hrel"
+        android:visibility="invisible"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pbd"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:keepScreenOn="true"
+            android:indeterminateBehavior="repeat"
+            android:theme="@style/WhiteAccent"
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.35"
+            android:background="#424242"
+            android:contentDescription="@string/ProdImg1" />
+
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/pbdload"
+        android:layout_width="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="60dp"
+        android:keepScreenOn="true"
+        android:layout_alignParentBottom="true"
+        android:indeterminateBehavior="repeat"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+       />
+    <ImageButton
+        android:id="@+id/scrollup"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_scroll"
+        android:layout_marginBottom="23dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

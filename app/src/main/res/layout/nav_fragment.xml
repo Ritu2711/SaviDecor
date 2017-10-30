@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    >
+
+    <EditText
+        android:id="@+id/searchcat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ECEFF1"
+        android:inputType="text"
+        android:maxLength="15"
+        android:textStyle="bold"
+        android:imeOptions="actionDone"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:textColor="#2151b9"
+        android:maxLines="1"
+        android:hint="Search..."/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_below="@id/searchcat"
+        android:layout_width="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:background="@color/cardview_light_background"
+        android:clickable="true"
+        android:layout_height="match_parent"
+         />
+    <xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
+        android:id="@+id/fast_scroller"
+        android:layout_width="3dp"
+
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#66FFFFFF"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    >
+
+    <ImageView
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/camimg"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/ddd"
+        android:layout_below="@+id/refreshimg"
+        android:contentDescription="@string/imgDescCAM" />
+
+<LinearLayout
+    android:id="@+id/ddd"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_above="@+id/linm"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true">
+
+    <LinearLayout
+        android:id="@+id/nLI"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camNAME"
+            android:layout_weight="6.4"
+            android:id="@+id/camname"
+            />
+
+        <EditText
+            android:layout_weight="3.6"
+            android:layout_width="200dp"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/camnameedt"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/nLI2"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camMAIL"
+            android:layout_weight="6.4"
+            android:id="@+id/cammail"
+            />
+
+        <EditText
+            android:layout_weight="3.6"
+            android:layout_width="200dp"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/cammailedt"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+</LinearLayout>
+  <LinearLayout
+      android:id="@+id/linm"
+      android:layout_width="match_parent"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="30dp"
+      android:layout_height="wrap_content">
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/camSEND"
+          android:background="@drawable/buttonbg"
+          android:id="@+id/Sbutton"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="20dp"
+           />
+
+  </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/refreshimg"
+        android:src="@drawable/plus"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/camimg"
+        android:layout_alignEnd="@+id/camimg"
+        android:contentDescription="@string/camCLOSE" />
+
+</RelativeLayout>

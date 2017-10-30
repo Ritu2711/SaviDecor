@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/paymentLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbar2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView"
+        android:scrollbars="none"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/appbar2" />
+
+    <FrameLayout
+        android:id="@+id/paymentRel"
+        android:visibility="visible"
+        android:clickable="true"
+        android:layout_below="@id/appbar2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#424242"
+            android:alpha="0.35"
+            android:contentDescription="@string/ProdImg1" />
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:keepScreenOn="true"
+            android:indeterminateBehavior="repeat"
+            android:theme="@style/WhiteAccent"
+          />
+
+    </FrameLayout>
+
+
+</RelativeLayout>

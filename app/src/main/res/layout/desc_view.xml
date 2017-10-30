@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/desc_view_iv_toolbar_background"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop" />
+
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar2"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="true"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:titleTextColor="@color/cardview_light_background">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background" />
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/webpbar"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible" />
+
+    <WebView
+
+        android:id="@+id/descWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbars"
+        android:layout_gravity="center_horizontal"
+        android:scrollbars="none" />
+
+</RelativeLayout>

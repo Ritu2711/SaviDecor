@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:focusable="true"
+    android:clickable="true"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="1dp"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardMaxElevation="5dp"
+    app:contentPadding="7dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="Stock sign->"
+            android:layout_marginTop="4dp"
+            android:textColor="#222"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/says"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:maxLines="5"
+            android:layout_weight="1"
+            android:minLines="1"
+            android:layout_marginTop="6dp"
+            android:text="What Customer Says:"
+            android:textColor="#222"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+
+            <RatingBar
+                android:id="@+id/myrate"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:rating="3.5"
+                android:isIndicator="true"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                 />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_gravity="center_vertical"
+                android:gravity="start"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="2"
+                android:text="Rating 4.0"
+                android:textColor="#222"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

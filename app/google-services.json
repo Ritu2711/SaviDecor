@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "151637069039",
+    "firebase_url": "https://savidecor-8cae0.firebaseio.com",
+    "project_id": "savidecor-8cae0",
+    "storage_bucket": "savidecor-8cae0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151637069039:android:359aa083b1cbee83",
+        "android_client_info": {
+          "package_name": "proj.savidecor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151637069039-rut55sdqp2a3e2rucjunk4doojb226kv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proj.savidecor",
+            "certificate_hash": "a3f04938d783ae8159b00fa80575ed4e381dde67"
+          }
+        },
+        {
+          "client_id": "151637069039-06ph2i0pn8q4aehirbg9j1oklb70482b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF9wbITPRg8AcSS_bllqtvfQqACocnokU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151637069039-06ph2i0pn8q4aehirbg9j1oklb70482b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

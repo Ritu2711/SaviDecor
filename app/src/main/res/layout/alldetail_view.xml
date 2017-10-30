@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expandrelmain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/expandrel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/linprodetaill"
+                android:layout_height="wrap_content">
+
+
+                <include
+                    android:id="@+id/l1"
+                    layout="@layout/productexpand_items" />
+
+                <include
+                    android:id="@+id/l3"
+                    layout="@layout/dynamic_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+<!--
+                <include
+                    android:id="@+id/l4"
+                    layout="@layout/expand_details_viewitem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   />-->
+
+                <include
+                    android:id="@+id/l5"
+                    layout="@layout/tabs_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/cartbuttons"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonbg"
+                android:text="@string/addtocart"
+                android:textColor="@color/black" />
+
+            <View
+                android:id="@+id/nullview"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/custombuttons"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonbg"
+                android:text="@string/customize"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/exRel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.35"
+            android:background="#424242"
+            android:contentDescription="@string/ProdImg1" />
+
+        <ProgressBar
+            android:id="@+id/ExPBD"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:keepScreenOn="true"
+            android:theme="@style/WhiteAccent" />
+
+    </FrameLayout>
+
+    <proj.savidecor.TouchImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:visibility="invisible" />
+
+</RelativeLayout>

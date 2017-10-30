@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:fitsSystemWindows="true"
+    android:minHeight="?attr/actionBarSize"
+    android:textAppearance="@style/yourstyle"
+    app:layout_scrollFlags="scroll|enterAlways"
+
+    app:titleTextColor="@color/cardview_light_background">
+
+    <ImageView
+        android:id="@+id/media_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="new post image" />
+
+</android.support.v7.widget.Toolbar>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#66FFFFFF"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/solidText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center|start"
+                android:text="@string/CustomDialogTitle"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/zxc"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/solidText"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/badgecolor" />
+
+            <TextView
+                android:id="@+id/productID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/zxc"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:id="@+id/nLI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/productID"
+                android:layout_marginTop="9dp"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+
+                <TextView
+                    android:id="@+id/tName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.4"
+                    android:text="@string/camNAME" />
+
+                <EditText
+                    android:id="@+id/nEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity=""
+                    android:layout_weight="3.6"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/eLI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nLI"
+                android:layout_marginTop="9dp"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/tEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.4"
+                    android:text="@string/camMAIL" />
+
+                <EditText
+                    android:id="@+id/eEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.6"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pLI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eLI"
+                android:layout_marginTop="9dp"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/tPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.4"
+                    android:text="@string/camPhone" />
+
+                <EditText
+                    android:id="@+id/pEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.6"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pLI2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pLI"
+                android:layout_marginTop="9dp"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.4"
+                    android:text="Size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.6"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cLI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pLI2"
+                android:layout_marginTop="19dp"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/cText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="@string/CustomDialogText" />
+
+                <EditText
+                    android:id="@+id/cEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:lines="3"
+
+                    android:inputType="textMultiLine"
+                     />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/sButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cLI"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/CustomSubmit"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/DialogPBD"
+            style="@android:style/Widget.Holo.ProgressBar.Large"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+</ScrollView>

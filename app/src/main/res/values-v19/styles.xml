@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+                <!-- Customize your theme here. -->
+            <item name="windowNoTitle">true</item>
+            <item name="windowActionBar">false</item>
+            <item name="overlapAnchor">false</item>
+                <item name="android:spinnerStyle">@style/Widget.AppCompat.Spinner.Underlined</item>
+                <item name="android:windowTranslucentStatus">true</item>
+            <item name="spinBars">false</item>
+            <item name="android:textColor">@color/Text</item>
+                <item name="colorPrimary">@color/colorPrimary</item>
+                <item name="colorPrimaryDark">@color/black</item>
+                <item name="colorAccent">@color/colorAccent</item>
+
+        </style>
+    <style name="RadioDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorControlNormal">@color/Text</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="textColorAlertDialogListItem">@color/Text</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorPrimary">@color/Text</item>
+    </style>
+
+    <style name="FormTheme">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowEnterAnimation">@anim/grow_in</item>
+        <item name="android:windowExitAnimation">@anim/grow_out</item>
+    </style>
+
+    <style name="SORTTHEME">
+        <item name="android:windowEnterAnimation">@anim/grow_in</item>
+        <item name="android:windowExitAnimation">@anim/grow_out</item>
+    </style>
+
+    <style name="PopupTheme2" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/Text</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
+
+    </style>
+
+    <style name="WhiteAccent">
+        <item name="colorAccent">#3D5AFE</item> <!-- Whatever color you want-->
+    </style>
+
+    <style name="yourstyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+</resources>

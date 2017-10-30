@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    >
+
+    <item android:id="@+id/callmenu"
+        android:title="@string/Callicon"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        android:icon="@drawable/call"
+        />
+
+    <item android:id="@+id/searchedt"
+        android:title="@string/Searchicon"
+        android:orderInCategory="1"
+        android:icon="@drawable/search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item
+        android:id="@+id/cart"
+        android:orderInCategory="3"
+        app:showAsAction="always"
+        android:icon="@drawable/badge"
+        android:title="@string/Carticon" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="4"
+        android:title="@string/action_settings"
+        android:icon="@drawable/more"
+        app:showAsAction="always" />
+
+</menu>
