@@ -11,6 +11,9 @@ public class ItemDetails {
     @SerializedName("pID")
     @Expose
     private String pID;
+    @SerializedName("price_range")
+    @Expose
+    private String price_range;
     @SerializedName("pName")
     @Expose
     private String pName;
@@ -97,6 +100,24 @@ public class ItemDetails {
     @Expose
     private List<Link> links = new ArrayList<Link>();
 
+
+
+    @SerializedName("material_details")
+    @Expose
+    private List<MaterialDetail> materialDetails = null;
+    @SerializedName("care_instruction")
+    @Expose
+    private String careInstruction;
+    @SerializedName("shipping_info")
+    @Expose
+    private String shippingInfo;
+
+
+
+    public String getPrice_range() {
+        return price_range;
+    }
+
     public String getPID() {
         return pID;
     }
@@ -173,6 +194,19 @@ public class ItemDetails {
         return option;
     }
 
+
+    public List<MaterialDetail> getMaterialDetails() {
+        return materialDetails;
+    }
+
+    public String getCareInstruction() {
+        return careInstruction;
+    }
+
+    public String getShippingInfo() {
+        return shippingInfo;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -194,6 +228,10 @@ public class ItemDetails {
                 ", pUDF7='" + pUDF7 + '\'' +
                 ", pInStock='" + pInStock + '\'' +
                 ", imageSrc='" + imageSrc + '\'' +
+                ", price_range='" + price_range + '\'' +
+                ", price_range='" + materialDetails + '\'' +
+                ", price_range='" + careInstruction + '\'' +
+                ", price_range='" + shippingInfo + '\'' +
                 ", option=" + option +
                 '}';
     }

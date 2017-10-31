@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MovieV
 
 
 
+
         if (prod.getPPrice().equals("0")) {
             holder.pPrice.setText(R.string.nullPrice);
             holder.pLprice.setText("");
@@ -113,7 +115,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MovieV
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView pName, pSizevalue, pPrice, pLprice,pRange;
+        TextView pName, pSizevalue, pPrice, pLprice;
         ImageView iv;
 
         MovieViewHolder(View v) {
@@ -121,7 +123,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MovieV
             this.pName = (TextView) v.findViewById(R.id.pname);
             this.pSizevalue = (TextView) v.findViewById(R.id.sizevalue);
             this.pPrice = (TextView) v.findViewById(R.id.pprice);
-            this.pRange = (TextView) v.findViewById(R.id.pRange);
+
             this.pLprice = (TextView) v.findViewById(R.id.myerror);
             this.iv = (ImageView) v.findViewById(R.id.iv);
 

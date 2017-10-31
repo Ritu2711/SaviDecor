@@ -11,6 +11,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:focusable="true"
     android:clickable="true"
+
     android:layout_alignParentBottom="true"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="1dp"

@@ -14,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -196,6 +197,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 try {
                     if (response.body().getItem().size()>0){
                         prod.addAll(response.body().getItem());
+
                       //  recyclerView.setAdapter(adapter);
 
                         adapter.notifyItemInserted(prod.size()-1);
@@ -279,7 +281,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 try {
                     prod.clear();
                     prod=response.body().getItem();
-                     adapter = new ProductsAdapter(prod,getActivity());
+
+                    adapter = new ProductsAdapter(prod,getActivity());
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     sortValue.setText(sval[i]);

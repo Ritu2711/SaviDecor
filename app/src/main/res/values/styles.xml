@@ -65,7 +65,19 @@
         <item name="colorAccent">#59a4af</item> <!-- Whatever color you want-->
     </style>
 
-    <style name="yourstyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
-        <item name="android:textSize">15sp</item>
+    <style name="yourstyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">9sp</item>
+    </style>
+    <style name="customtheme" parent="@android:style/Theme.Light">
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+    <style name="SpinnerItem">
+        <item name="android:textColor">#993399</item>
+        <item name="android:background">@drawable/my_rectangle</item>
+    </style>
+    <style name="SpinnerDropDownItem">
+        <item name="android:textColor">#993399</item>
+        <item name="android:background">@drawable/my_rectangle</item>
     </style>
 </resources>
