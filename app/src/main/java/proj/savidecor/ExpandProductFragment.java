@@ -55,6 +55,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,8 +78,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import proj.savidecor.Models.Combination;
 import proj.savidecor.Models.ItemDetails;
+import proj.savidecor.Models.MaterialDetail;
 import proj.savidecor.Models.Models;
+import proj.savidecor.Models.Option;
 import proj.savidecor.Utils.Apiclient;
 import proj.savidecor.Utils.Constants;
 import proj.savidecor.Utils.ItemAPI;
@@ -100,6 +105,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     FrameLayout exRel;
     private SharedPreferences sharedPreferences;
     String imei;
+    ArrayList<Combination> arrayListComb=new ArrayList<>();
     ImageView expandIMG,manufacture_img,freeshipimg,warrantyimg,lowpriceimg;
 
     TextView title, price, lprice, sku, smallsize, smallcolor,pInStock,pLongDescription;
@@ -108,10 +114,17 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     private String pid, pname, pprice, pquantity;
     private String sp1v = "0";
 
+    ArrayList<Option> opArray=new ArrayList<>();
+
+    ArrayList alm=new ArrayList();
+    ArrayList als=new ArrayList();
+    ArrayList alt=new ArrayList();
+
+    List<Option> arrayList;
     List<View> allVIEWS = new ArrayList<>();
     List<View> allVIEWS2 = new ArrayList<>();
     LinearLayout linearLayout;
-    GridLayout tabDynamic;
+    //GridLayout tabDynamic;
     Spinner sp1;
     private View optionLayout;
     private View DescButtonLayout;
@@ -129,6 +142,11 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     int mShortAnimationDuration;
     private boolean isIMG = false;
     private ImageView share;
+    private TableLayout tabDyanmic;
+    private Spinner material;
+    private Spinner type;
+    private Spinner size;
+
 
 
     public ExpandProductFragment() {
@@ -443,6 +461,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             }
         });
 
+
     }
 
     private void creteDIL() {
@@ -601,6 +620,9 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         expandIMG = (ImageView) view.findViewById(R.id.expandIMG);
         title = (TextView) view.findViewById(R.id.title);
         price = (TextView) view.findViewById(R.id.price);
+        material=(Spinner)view.findViewById(R.id.material);
+        type=(Spinner)view.findViewById(R.id.type);
+        size=(Spinner)view.findViewById(R.id.size);
         lprice = (TextView) view.findViewById(R.id.lprice);
         pLongDescription = (TextView) view.findViewById(R.id.pLongDescription);
         sku = (TextView) view.findViewById(R.id.sku);
@@ -613,7 +635,9 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         linearLayout = (LinearLayout) view.findViewById(R.id.dynamiclin);
         optionLayout = view.findViewById(R.id.l3);
         DescButtonLayout = view.findViewById(R.id.l5);
+/*
         tabDynamic = (GridLayout) view.findViewById(R.id.tabDyanmic);
+*/
         expandrel = (RelativeLayout) view.findViewById(R.id.expandrel);
         share = (ImageView) view.findViewById(R.id.share);
 
@@ -623,6 +647,64 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                                     //This is to be set programmatically
                                  //cart.setBackgroundColor(Color.CYAN);
         // <------------------------------------------------------------------------------------------------->
+
+
+
+
+        material.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                if (arrayListComb!=null && !arrayListComb.isEmpty()){
+
+                    Log.d("arrComb",""+arrayListComb.size());
+
+                }
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                Toast.makeText(getActivity(), ""+type.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        size.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                Toast.makeText(getActivity(), ""+size.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        /*type.setOnItemSelectedListener(this);
+        size.setOnItemSelectedListener(this);*/
     }
 
     private void setDATA() {
@@ -632,10 +714,56 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
+        optionLayout.setVisibility(View.GONE);
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "Rupee_Foradian.ttf");
         price.setTypeface(face);
+       arrayList=itemDetailses.getOption();
+
+
+        if (arrayList.size()==0)
+        {
+            material.setVisibility(View.GONE);
+            type.setVisibility(View.GONE);
+            size.setVisibility(View.GONE);
+        }
+
+
+        for (int i=0;i<arrayList.size();i++)
+        {
+
+            Option op=arrayList.get(i);
+            opArray.add(op);
+
+
+
+            if (!(alm.contains(op.getMaterial())))
+            {
+
+                alm.add(op.getMaterial());
+            }
+            if (!(als.contains(op.getSize())))
+            {
+
+                als.add(op.getSize());
+            }
+            if (!(alt.contains(op.getType())))
+            {
+
+                alt.add(op.getType());
+            }
+
+
+
+        }
+        material.setPrompt("Select Material");
+        type.setPrompt("Select Type");
+        size.setPrompt("Select Size");
+        material.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,alm));
+        type.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,alt));
+        size.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,als));
+
+
 
         title.setText(itemDetailses.getPName());
         if (itemDetailses.getPPrice().equals("0")) {
@@ -644,12 +772,12 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             lprice.setText("");
         } else {
             if (itemDetailses.getPListPrice().contains("0")) {
-                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPPrice()));
+                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPrice_range()));
                 lprice.setText("");
             } else {
                 SpannableString spannableString = new SpannableString(itemDetailses.getPListPrice());
                 spannableString.setSpan(new StrikethroughSpan(), 0, itemDetailses.getPListPrice().length(), 0);
-                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPPrice()));
+                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPrice_range()));
                 lprice.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", spannableString));
             }
         }
@@ -765,7 +893,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
             if (itemDetailses.getLinks().size() == 0) {
                 DescButtonLayout.setVisibility(View.GONE);
             } else {
-                tabDynamic.setColumnCount(3);
+               // tabDynamic.setColumnCount(3);
                 for (int m = 0; m < itemDetailses.getLinks().size(); m++) {
                     Button b = new Button(getActivity());
                     b.setText(itemDetailses.getLinks().get(m).getLabel());
@@ -802,7 +930,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
                         }
                     });
                     allVIEWS2.add(b);
-                    tabDynamic.addView(b);
+                   // tabDynamic.addView(b);
                 }
             }
             exRel.setVisibility(View.VISIBLE);
@@ -817,7 +945,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
     private void fetchMORE() {
         try {
             if (itemDetailses.getOption().size() == 0) {
-                optionLayout.setVisibility(View.GONE);
+              //  optionLayout.setVisibility(View.GONE);
                 isOptionAvailable = false;
             } else {
                 for (int i = 0; i < itemDetailses.getOption().size(); i++) {
@@ -1013,6 +1141,10 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
         if (isAbleAddtocart) {
             price.setText(TextUtils.concat("$", String.valueOf(spinnerValue + mainPrice + radioValue)));
         }
+
+
+
+
 
     }
 
