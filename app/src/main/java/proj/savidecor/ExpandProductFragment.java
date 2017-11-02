@@ -24,7 +24,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.text.Html;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -56,7 +55,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +65,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,12 +74,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import proj.savidecor.Models.Combination;
 import proj.savidecor.Models.ItemDetails;
-import proj.savidecor.Models.MaterialDetail;
 import proj.savidecor.Models.Models;
 import proj.savidecor.Models.Option;
 import proj.savidecor.Utils.Apiclient;
@@ -94,52 +94,48 @@ import static proj.savidecor.Utils.Constants.retryNum;
 
 public class ExpandProductFragment extends Fragment implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
+    private static final int REQUEST_CODE = 1;
     View view;
-
+    SharedPreferences selection;
     RelativeLayout expandrel;
-    private boolean isOptionAvailable = true;
     ItemDetails itemDetailses;
     Button customize, cart;
     String cName, cEmail, cPhone, cText;
-    String prodNAME,prodSize;
+    String prodNAME, prodSize;
     FrameLayout exRel;
-    private SharedPreferences sharedPreferences;
     String imei;
-    ArrayList<Combination> arrayListComb=new ArrayList<>();
-    ImageView expandIMG,manufacture_img,freeshipimg,warrantyimg,lowpriceimg;
-
-    TextView title, price, lprice, sku, smallsize, smallcolor,pInStock,pLongDescription;
+    ArrayList<Combination> arrayListComb = new ArrayList<>();
+    ImageView expandIMG, manufacture_img, freeshipimg, warrantyimg, lowpriceimg;
+    TextView title, price, lprice, sku, smallsize, smallcolor, pInStock, pLongDescription;
     AlertDialog alertDialog, choiceAlertDialog, cameraDialog;
-    private static final int REQUEST_CODE = 1;
-    private String pid, pname, pprice, pquantity;
-    private String sp1v = "0";
-
-    ArrayList<Option> opArray=new ArrayList<>();
-
-    ArrayList alm=new ArrayList();
-    ArrayList als=new ArrayList();
-    ArrayList alt=new ArrayList();
-
+    String materialselectcion, typeselection, sizeselection;
+    ArrayList<Option> opArray = new ArrayList<>();
+    List<Combination> combinationArrayList = new ArrayList<>();
+    ArrayList alm = new ArrayList();
+    ArrayList als = new ArrayList();
+    ArrayList alt = new ArrayList();
     List<Option> arrayList;
     List<View> allVIEWS = new ArrayList<>();
     List<View> allVIEWS2 = new ArrayList<>();
     LinearLayout linearLayout;
     //GridLayout tabDynamic;
     Spinner sp1;
-    private View optionLayout;
-    private View DescButtonLayout;
-
     JSONObject itemJObject;
     JSONArray itemJArray;
     JSONObject ks = new JSONObject();
-
     int mainPrice = 0;
     int spinnerValue = 0;
     int radioValue = 0;
-    private boolean isAbleAddtocart = true;
     TouchImageView img;
     Animator mCurrentAnimator;
     int mShortAnimationDuration;
+    private boolean isOptionAvailable = true;
+    private SharedPreferences sharedPreferences;
+    private String pid, pname, pprice, pquantity;
+    private String sp1v = "0";
+    private View optionLayout;
+    private View DescButtonLayout;
+    private boolean isAbleAddtocart = true;
     private boolean isIMG = false;
     private ImageView share;
     private TableLayout tabDyanmic;
@@ -148,9 +144,82 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     private Spinner size;
 
 
-
     public ExpandProductFragment() {
         super();
+    }
+
+    private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
+        String str = strSpanned.toString();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
+
+        if (str.contains(spanableText)) {
+
+
+            ssb.setSpan(new MySpannable(false) {
+                @Override
+                public void onClick(View widget) {
+                    if (viewMore) {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, -1, "View Less", false);
+                    } else {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, 3, "View More", true);
+                    }
+                }
+            }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
+
+        }
+        return ssb;
+
+    }
+
+    public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+
+        if (tv.getTag() == null) {
+            tv.setTag(tv.getText());
+        }
+        ViewTreeObserver vto = tv.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+
+                ViewTreeObserver obs = tv.getViewTreeObserver();
+                obs.removeGlobalOnLayoutListener(this);
+                if (maxLine == 0) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(0);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else {
+                    int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -158,7 +227,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         Bundle pb = getArguments();
         prodNAME = pb.getString("itemID");
-        prodSize= pb.getString("prodSize");
+        prodSize = pb.getString("prodSize");
         setHasOptionsMenu(true);
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
@@ -189,7 +258,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
         if (Constants.isNetworkAvailable(getActivity())) {
             ItemAPI itemAPI = Apiclient.getClient().create(ItemAPI.class);
-            Call<Models> call = itemAPI.getAllItemDetails( prodNAME);
+            Call<Models> call = itemAPI.getAllItemDetails(prodNAME);
             call.enqueue(new Constants.BackoffCallback<Models>(retryNum) {
                 @Override
                 public void onResponse(final Call<Models> call, Response<Models> response) {
@@ -198,8 +267,6 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                         Gson gson = new Gson();
                         Log.e("sub response", " " + gson.toJson(response.body()));
                         Log.e("sub response2", " " + itemDetailses.getOption());
-
-
 
 
                         //
@@ -214,7 +281,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                 @Override
                 public void onFailedAfterRetry(Throwable t) {
                     exRel.setVisibility(View.INVISIBLE);
-                    Log.e("failure message:",t.getMessage() );
+                    Log.e("failure message:", t.getMessage());
                 }
             });
 
@@ -259,7 +326,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
 
                         ItemAPI itemAPI = Apiclient.getClient().create(ItemAPI.class);
-                        Call<ResponseBody> cartcall = itemAPI.insertINcart( imei, pid, pname, pprice, pquantity, String.valueOf(itemJArray));
+                        Call<ResponseBody> cartcall = itemAPI.insertINcart(imei, pid, pname, pprice, pquantity, String.valueOf(itemJArray));
 
                         Log.e("send add to cart", " " + imei + "*" + pid + "*" + pname + " " + pprice + " " + pquantity + " " + String.valueOf(itemJArray));
                         cartcall.enqueue(new Constants.BackoffCallback<ResponseBody>(retryNum) {
@@ -533,7 +600,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
                         rel.setVisibility(View.INVISIBLE);
                         ItemAPI itemAPI = Apiclient.postData().create(ItemAPI.class);
-                        Call<ResponseBody> cal = itemAPI.insertData( imei, itemDetailses.getPID().trim(), itemDetailses.getPName().trim(), cName, cEmail, cPhone, cText);
+                        Call<ResponseBody> cal = itemAPI.insertData(imei, itemDetailses.getPID().trim(), itemDetailses.getPName().trim(), cName, cEmail, cPhone, cText);
 
                         cal.enqueue(new Constants.BackoffCallback<ResponseBody>(retryNum) {
                             @Override
@@ -620,9 +687,9 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         expandIMG = (ImageView) view.findViewById(R.id.expandIMG);
         title = (TextView) view.findViewById(R.id.title);
         price = (TextView) view.findViewById(R.id.price);
-        material=(Spinner)view.findViewById(R.id.material);
-        type=(Spinner)view.findViewById(R.id.type);
-        size=(Spinner)view.findViewById(R.id.size);
+        material = (Spinner) view.findViewById(R.id.material);
+        type = (Spinner) view.findViewById(R.id.type);
+        size = (Spinner) view.findViewById(R.id.size);
         lprice = (TextView) view.findViewById(R.id.lprice);
         pLongDescription = (TextView) view.findViewById(R.id.pLongDescription);
         sku = (TextView) view.findViewById(R.id.sku);
@@ -644,21 +711,19 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         img = (TouchImageView) view.findViewById(R.id.expanded_image);
         //manufacture_img=(ImageView)view.findViewById(R.id.manufacture_img);
         //<------------------------------------------------------------------------------------------------->
-                                    //This is to be set programmatically
-                                 //cart.setBackgroundColor(Color.CYAN);
+        //This is to be set programmatically
+        //cart.setBackgroundColor(Color.CYAN);
         // <------------------------------------------------------------------------------------------------->
-
-
 
 
         material.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
-                if (arrayListComb!=null && !arrayListComb.isEmpty()){
-
-                    Log.d("arrComb",""+arrayListComb.size());
+                materialselectcion = "" + material.getItemAtPosition(position);
+                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                    getMoreData();
+                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -675,8 +740,15 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
+                typeselection = "" + type.getItemAtPosition(position);
 
-                Toast.makeText(getActivity(), ""+type.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
+                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                    getMoreData();
+                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
 
 
@@ -691,8 +763,15 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
+                sizeselection = "" + size.getItemAtPosition(position);
 
-                Toast.makeText(getActivity(), ""+size.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                    getMoreData();
+                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
+
+                }
+
+
             }
 
 
@@ -703,8 +782,24 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         });
 
 
+
+
+
         /*type.setOnItemSelectedListener(this);
         size.setOnItemSelectedListener(this);*/
+    }
+
+    private void getMoreData() {
+
+        Combination searchKey = new Combination(materialselectcion, typeselection, sizeselection);
+        //Combination searchKey = new Combination("Art Silk","Hand Tufted","1x1");
+
+        int index = Collections.binarySearch(combinationArrayList, searchKey, new EmpComp());
+        Combination combination = combinationArrayList.get(index);
+        System.out.println("Index of the searched key: " + combination.getPrice());
+        System.out.println("Index of the searched key: " + index);
+        price.setText(combination.getPrice());
+
     }
 
     private void setDATA() {
@@ -718,51 +813,49 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "Rupee_Foradian.ttf");
         price.setTypeface(face);
-       arrayList=itemDetailses.getOption();
+        arrayList = itemDetailses.getOption();
 
 
-        if (arrayList.size()==0)
-        {
+        if (arrayList.size() == 0) {
             material.setVisibility(View.GONE);
             type.setVisibility(View.GONE);
             size.setVisibility(View.GONE);
         }
 
+        Log.d("mmmmm", "" + arrayList.size());
 
-        for (int i=0;i<arrayList.size();i++)
-        {
+        for (int i = 0; i < arrayList.size(); i++) {
 
-            Option op=arrayList.get(i);
+
+            Option op = arrayList.get(i);
             opArray.add(op);
 
 
+            combinationArrayList.add(new Combination(op.getMaterial(), op.getType(), op.getSize(), op.getPrice(), "" + i));
 
-            if (!(alm.contains(op.getMaterial())))
-            {
 
-                alm.add(op.getMaterial());
-            }
-            if (!(als.contains(op.getSize())))
-            {
-
+            if (!als.contains(op.getSize())) {
                 als.add(op.getSize());
             }
-            if (!(alt.contains(op.getType())))
-            {
 
+            if (!alt.contains(op.getType())) {
                 alt.add(op.getType());
             }
 
+            if (!alm.contains(op.getMaterial())) {
+                alm.add(op.getMaterial());
+
+            }
 
 
         }
         material.setPrompt("Select Material");
         type.setPrompt("Select Type");
         size.setPrompt("Select Size");
-        material.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,alm));
-        type.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,alt));
-        size.setAdapter(new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,als));
+        material.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, alm));
 
+        type.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, alt));
+        size.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, als));
 
 
         title.setText(itemDetailses.getPName());
@@ -772,28 +865,26 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             lprice.setText("");
         } else {
             if (itemDetailses.getPListPrice().contains("0")) {
-                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPrice_range()));
+                price.setText(TextUtils.concat("" + getActivity().getResources().getString(R.string.rs) + " ", itemDetailses.getPrice_range()));
                 lprice.setText("");
             } else {
                 SpannableString spannableString = new SpannableString(itemDetailses.getPListPrice());
                 spannableString.setSpan(new StrikethroughSpan(), 0, itemDetailses.getPListPrice().length(), 0);
-                price.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", itemDetailses.getPrice_range()));
-                lprice.setText(TextUtils.concat(""+getActivity().getResources().getString(R.string.rs)+" ", spannableString));
+                price.setText(TextUtils.concat("" + getActivity().getResources().getString(R.string.rs) + " ", itemDetailses.getPrice_range()));
+                lprice.setText(TextUtils.concat("" + getActivity().getResources().getString(R.string.rs) + " ", spannableString));
             }
         }
 
-        if (itemDetailses.getUdf3() != null && !itemDetailses.getUdf3().isEmpty()){
+        if (itemDetailses.getUdf3() != null && !itemDetailses.getUdf3().isEmpty()) {
             smallcolor.setText(TextUtils.concat("Color: ", itemDetailses.getUdf3()));
 
-        }else {
+        } else {
             smallcolor.setVisibility(View.GONE);
         }
 
 
-
-
-        if (itemDetailses.getpInStock() != null && !itemDetailses.getpInStock().isEmpty()){
-            if (itemDetailses.getpInStock().equals("0")){
+        if (itemDetailses.getpInStock() != null && !itemDetailses.getpInStock().isEmpty()) {
+            if (itemDetailses.getpInStock().equals("0")) {
                 pLongDescription.setText(itemDetailses.getpLongdescription());
                 makeTextViewResizable(pLongDescription, 2, "View More", true);
 
@@ -801,85 +892,79 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                 cart.setBackgroundResource((R.drawable.buttonbgdisable));
 
 
-            }
-            else {
-                pInStock.setText(TextUtils.concat("Available: ",itemDetailses.getpInStock()));
+            } else {
+                pInStock.setText(TextUtils.concat("Available: ", itemDetailses.getpInStock()));
 
             }
+        } else {
+            pInStock.setVisibility(View.GONE);
         }
-        else {
-           pInStock.setVisibility(View.GONE);
-        }
-
-
 
 
         if (itemDetailses.getUdf2() != null && !itemDetailses.getUdf2().isEmpty()) {
 
             smallsize.setText(TextUtils.concat("Size: ", itemDetailses.getUdf2()));
-        }
-       else{
-            if (prodSize !=null && !prodSize.isEmpty()){
+        } else {
+            if (prodSize != null && !prodSize.isEmpty()) {
                 smallsize.setText(TextUtils.concat("Size: ", prodSize));
 
-            }else {
+            } else {
                 smallsize.setVisibility(View.GONE);
 
             }
 
-           ;
+            ;
 
         }
 
-        if (itemDetailses.getPSKU() != null && !itemDetailses.getPSKU().isEmpty()){
+        if (itemDetailses.getPSKU() != null && !itemDetailses.getPSKU().isEmpty()) {
             sku.setText(TextUtils.concat("SKU: ", itemDetailses.getPSKU()));
-        }else {
-        sku.setVisibility(View.GONE);
+        } else {
+            sku.setVisibility(View.GONE);
         }
-
 
 
         fetchMORE();
         try {
-if (itemDetailses.getImageSrc().trim().startsWith("http")) {
-    Glide.with(getContext())
-            .load(itemDetailses.getImageSrc().trim())
-            .placeholder(R.drawable.pb_animview)
-            .error(R.drawable.search)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    return false;
-                }
+            if (itemDetailses.getImageSrc().trim().startsWith("http")) {
+                Glide.with(getContext())
+                        .load(itemDetailses.getImageSrc().trim())
+                        .placeholder(R.drawable.pb_animview)
+                        .error(R.drawable.search)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                return false;
+                            }
 
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    isIMG = true;
-                    return false;
-                }
-            })
-            .into(expandIMG);
-}else {
-    Glide.with(getContext())
-            .load("http:" + itemDetailses.getImageSrc().trim())
-            .placeholder(R.drawable.pb_animview)
-            .error(R.drawable.search)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    return false;
-                }
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                isIMG = true;
+                                return false;
+                            }
+                        })
+                        .into(expandIMG);
+            } else {
+                Glide.with(getContext())
+                        .load("http:" + itemDetailses.getImageSrc().trim())
+                        .placeholder(R.drawable.pb_animview)
+                        .error(R.drawable.search)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                return false;
+                            }
 
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    isIMG = true;
-                    return false;
-                }
-            })
-            .into(expandIMG);
-}
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                isIMG = true;
+                                return false;
+                            }
+                        })
+                        .into(expandIMG);
+            }
 
 
         } catch (Exception e) {
@@ -893,16 +978,16 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
             if (itemDetailses.getLinks().size() == 0) {
                 DescButtonLayout.setVisibility(View.GONE);
             } else {
-               // tabDynamic.setColumnCount(3);
+                // tabDynamic.setColumnCount(3);
                 for (int m = 0; m < itemDetailses.getLinks().size(); m++) {
                     Button b = new Button(getActivity());
                     b.setText(itemDetailses.getLinks().get(m).getLabel());
-                    GridLayout.LayoutParams params=new GridLayout.LayoutParams();
+                    GridLayout.LayoutParams params = new GridLayout.LayoutParams();
 
-                    params.setMargins(7,7,7,7);
+                    params.setMargins(7, 7, 7, 7);
                     b.setLayoutParams(params);
                     b.setLines(2);
-                    b.setPadding(10,10,10,10);
+                    b.setPadding(10, 10, 10, 10);
                     b.setBackgroundResource(R.drawable.buttonborder);
                     b.setId(m);
                     final int finalM = m;
@@ -911,7 +996,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
                         public void onClick(View view) {
                             Intent intent = new Intent(getActivity(), DescriptionActivity.class);
                             intent.putExtra("DescriptionUrl", itemDetailses.getLinks().get(finalM).getHref().trim() + "/prodtab-led.php?id=1");
-                            Log.d("expproduct",itemDetailses.getLinks().get(finalM).getHref().trim() +"/prodtab-led.php?id=1");
+                            Log.d("expproduct", itemDetailses.getLinks().get(finalM).getHref().trim() + "/prodtab-led.php?id=1");
                             intent.putExtra("Title", itemDetailses.getLinks().get(finalM).getLabel().trim());
                             intent.putExtra("Htname", itemDetailses.getPName().trim());
 
@@ -930,7 +1015,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
                         }
                     });
                     allVIEWS2.add(b);
-                   // tabDynamic.addView(b);
+                    // tabDynamic.addView(b);
                 }
             }
             exRel.setVisibility(View.VISIBLE);
@@ -945,7 +1030,7 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
     private void fetchMORE() {
         try {
             if (itemDetailses.getOption().size() == 0) {
-              //  optionLayout.setVisibility(View.GONE);
+                //  optionLayout.setVisibility(View.GONE);
                 isOptionAvailable = false;
             } else {
                 for (int i = 0; i < itemDetailses.getOption().size(); i++) {
@@ -1143,9 +1228,6 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
         }
 
 
-
-
-
     }
 
     @Override
@@ -1167,7 +1249,6 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
             price.setText(TextUtils.concat("$", String.valueOf(spinnerValue + radioValue + mainPrice)));
         }
     }
-
 
     public static class MySpannable extends ClickableSpan {
 
@@ -1193,76 +1274,17 @@ if (itemDetailses.getImageSrc().trim().startsWith("http")) {
 
         }
     }
-    private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
-                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
-        String str = strSpanned.toString();
-        SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
 
-        if (str.contains(spanableText)) {
+    public class EmpComp implements Comparator<Combination> {
 
+        public int compare(Combination e1, Combination e2) {
 
-            ssb.setSpan(new MySpannable(false){
-                @Override
-                public void onClick(View widget) {
-                    if (viewMore) {
-                        tv.setLayoutParams(tv.getLayoutParams());
-                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
-                        tv.invalidate();
-                        makeTextViewResizable(tv, -1, "View Less", false);
-                    } else {
-                        tv.setLayoutParams(tv.getLayoutParams());
-                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
-                        tv.invalidate();
-                        makeTextViewResizable(tv, 3, "View More", true);
-                    }
-                }
-            }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
+            return new CompareToBuilder()
+                    .append(e1.materia, e2.materia)
+                    .append(e1.type, e2.type)
+                    .append(e1.size, e2.size)
+                    .toComparison();
 
         }
-        return ssb;
-
-    }
-    public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
-
-        if (tv.getTag() == null) {
-            tv.setTag(tv.getText());
-        }
-        ViewTreeObserver vto = tv.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-
-                ViewTreeObserver obs = tv.getViewTreeObserver();
-                obs.removeGlobalOnLayoutListener(this);
-                if (maxLine == 0) {
-                    int lineEndIndex = tv.getLayout().getLineEnd(0);
-                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                    tv.setText(text);
-                    tv.setMovementMethod(LinkMovementMethod.getInstance());
-                    tv.setText(
-                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
-                                    viewMore), TextView.BufferType.SPANNABLE);
-                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
-                    int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
-                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                    tv.setText(text);
-                    tv.setMovementMethod(LinkMovementMethod.getInstance());
-                    tv.setText(
-                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
-                                    viewMore), TextView.BufferType.SPANNABLE);
-                } else {
-                    int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
-                    String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
-                    tv.setText(text);
-                    tv.setMovementMethod(LinkMovementMethod.getInstance());
-                    tv.setText(
-                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
-                                    viewMore), TextView.BufferType.SPANNABLE);
-                }
-            }
-        });
-
     }
 }
