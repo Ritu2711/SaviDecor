@@ -20,7 +20,6 @@ import retrofit2.http.Url;
 
 public interface
 ItemAPI {
-    //Collect Site Id
 
 
     @GET("setup.php")
