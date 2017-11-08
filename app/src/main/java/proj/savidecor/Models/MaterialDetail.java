@@ -10,79 +10,90 @@ import com.google.gson.annotations.SerializedName;
 public class MaterialDetail {
     @SerializedName("id")
     @Expose
-    private String id;
+    public String id;
     @SerializedName("material_name")
     @Expose
-    private String materialName;
+    public String materialName;
     @SerializedName("material_type")
     @Expose
-    private String materialType;
+    public String materialType;
     @SerializedName("yarn")
     @Expose
-    private String yarn;
+    public String yarn;
     @SerializedName("tufting")
     @Expose
-    private String tufting;
+    public String tufting;
     @SerializedName("finish")
     @Expose
-    private String finish;
+    public String finish;
     @SerializedName("yarn_count")
     @Expose
-    private String yarnCount;
+    public String yarnCount;
     @SerializedName("yarn_ply")
     @Expose
-    private String yarnPly;
+    public String yarnPly;
     @SerializedName("total_weight")
     @Expose
-    private String totalWeight;
+    public String totalWeight;
     @SerializedName("pile_weight")
     @Expose
-    private String pileWeight;
+    public String pileWeight;
     @SerializedName("total_height")
     @Expose
-    private String totalHeight;
+    public String totalHeight;
     @SerializedName("pile_height")
     @Expose
-    private String pileHeight;
+    public String pileHeight;
     @SerializedName("tufts_sq_inch")
     @Expose
-    private String tuftsSqInch;
+    public String tuftsSqInch;
     @SerializedName("tuft_binding_strength")
     @Expose
-    private String tuftBindingStrength;
+    public String tuftBindingStrength;
     @SerializedName("primary_backing_content")
     @Expose
-    private String primaryBackingContent;
+    public String primaryBackingContent;
     @SerializedName("secondary_backing_content")
     @Expose
-    private String secondaryBackingContent;
+    public String secondaryBackingContent;
     @SerializedName("latex")
     @Expose
-    private String latex;
+    public String latex;
     @SerializedName("finish2")
     @Expose
-    private String finish2;
+    public String finish2;
     @SerializedName("insect_resistance")
     @Expose
-    private String insectResistance;
+    public String insectResistance;
     @SerializedName("flammability_tests")
     @Expose
-    private String flammabilityTests;
+    public String flammabilityTests;
     @SerializedName("colour_fastedness_light")
     @Expose
-    private String colourFastednessLight;
+    public String colourFastednessLight;
     @SerializedName("colour_fastedness_water")
     @Expose
-    private String colourFastednessWater;
+    public String colourFastednessWater;
     @SerializedName("colour_fastedness_shampooing")
     @Expose
-    private String colourFastednessShampooing;
+    public String colourFastednessShampooing;
     @SerializedName("dye_stuff")
     @Expose
-    private String dyeStuff;
+    public String dyeStuff;
     @SerializedName("method_of_dyeing")
     @Expose
-    private String methodOfDyeing;
+    public String methodOfDyeing;
+
+
+
+    public MaterialDetail(String id) {
+        this.materialName = id;
+    }
+
+    public MaterialDetail(String yarn, String tuffing) {
+        this.yarn=yarn;
+        this.tufting=tuffing;
+    }
 
     public String getId() {
         return id;
@@ -285,4 +296,34 @@ public class MaterialDetail {
     }
 
 
+    @Override
+    public String toString() {
+        return "MaterialDetail{" +
+                "id='" + id + '\'' +
+                ", materialName='" + materialName + '\'' +
+                ", materialType='" + materialType + '\'' +
+                ", yarn='" + yarn + '\'' +
+                ", tufting='" + tufting + '\'' +
+                ", finish='" + finish + '\'' +
+                ", yarnCount='" + yarnCount + '\'' +
+                ", yarnPly='" + yarnPly + '\'' +
+                ", totalWeight='" + totalWeight + '\'' +
+                ", pileWeight='" + pileWeight + '\'' +
+                ", totalHeight='" + totalHeight + '\'' +
+                ", pileHeight='" + pileHeight + '\'' +
+                ", tuftsSqInch='" + tuftsSqInch + '\'' +
+                ", tuftBindingStrength='" + tuftBindingStrength + '\'' +
+                ", primaryBackingContent='" + primaryBackingContent + '\'' +
+                ", secondaryBackingContent='" + secondaryBackingContent + '\'' +
+                ", latex='" + latex + '\'' +
+                ", finish2='" + finish2 + '\'' +
+                ", insectResistance='" + insectResistance + '\'' +
+                ", flammabilityTests='" + flammabilityTests + '\'' +
+                ", colourFastednessLight='" + colourFastednessLight + '\'' +
+                ", colourFastednessWater='" + colourFastednessWater + '\'' +
+                ", colourFastednessShampooing='" + colourFastednessShampooing + '\'' +
+                ", dyeStuff='" + dyeStuff + '\'' +
+                ", methodOfDyeing='" + methodOfDyeing + '\'' +
+                '}';
+    }
 }

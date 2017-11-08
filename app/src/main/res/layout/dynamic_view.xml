@@ -10,6 +10,7 @@
     android:background="?android:attr/selectableItemBackground"
     android:foreground="?android:attr/selectableItemBackground"
     android:focusable="true"
+
     android:clickable="true"
 
     android:layout_alignParentBottom="true"
@@ -25,8 +26,476 @@
         android:id="@+id/dynamiclin"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Product Details"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/table_row"
+            android:layout_height="wrap_content" />
 
+
+        <TableLayout
+            android:shrinkColumns="*"
+            android:id="@+id/main_table"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_row"
+                    android:text="Tufting"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:singleLine="false"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tufting"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_row"
+                    android:text="Yarn"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:singleLine="false"
+                    android:layout_height="match_parent"
+                    android:id="@+id/yarn"
+                    />
+            </TableRow>
+
+
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_row"
+                    android:text="Flammability Tests"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:layout_span="10"
+                    android:singleLine="false"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flammabilitytests"
+                    />
+            </TableRow>
+
+
+
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:text="Yarn Count"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:layout_span="10"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yarncount"
+                    />
+            </TableRow>
+
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:text="Total Weight"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:layout_span="10"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/totalweight"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:text="Total Height"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:layout_span="10"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/totalheight"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:text="Tufts per Sq.inch"/>
+
+                <TextView android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:scrollHorizontally="false"
+                    android:ellipsize="none"
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_weight="1"
+                    android:maxLines="10"
+
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tuftspersqinch"
+                    />
+            </TableRow>
+
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_row"
+                    android:text="Primary Backing Content"/>
+
+                <TextView android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:maxLines="4"
+                    android:layout_span="10"
+                    android:singleLine="false"
+                    android:layout_height="match_parent"
+                    android:id="@+id/primarybackingcontent"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+
+                    android:text="Pile Finish"
+                    android:background="@drawable/table_row"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+                    android:maxLines="4"
+
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pilefinish"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="5dp"
+                    android:text="Yarn Ply"
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+                    android:maxLines="4"
+
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yarnply"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:text="Pile Weight"
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+
+                    android:id="@+id/pileweight"/>
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+
+                    android:text="Pile Height"
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pileheight"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+
+                    android:text="Tuft Binding Strength"
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
+                    android:ellipsize="none"
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_weight="1"
+                    android:maxLines="10"
+                    android:layout_height="match_parent"
+
+                    android:id="@+id/tuftbindingstrength"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:padding="5dp"
+
+                    android:text="Secondary Backing Content"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondarybackingcontent"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Finish"
+                    android:padding="5dp"
+
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
+                    android:ellipsize="none"
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_weight="1"
+                    android:maxLines="10"
+
+
+                    android:layout_height="match_parent"
+                    android:id="@+id/finish"
+                    />
+            </TableRow>
+            <TableRow  android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Insect Resistance"
+                    android:padding="5dp"
+
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
+                    android:ellipsize="none"
+                    android:layout_gravity="center_vertical"
+
+android:layout_weight="1"
+                    android:maxLines="10"
+
+                    android:layout_height="match_parent"
+                    android:id="@+id/insectresistance"
+                    />
+            </TableRow>
+            <TableRow android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:maxLines="4"
+                    android:lines="4"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                   android:text="Colour Fastedness (40 AFU): "
+                    />
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@drawable/table_row"
+                    android:layout_span="5"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/colour_fastedness_light"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/black"/>
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/colour_fastedness_water"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/black"/>
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/colour_fastedness_shampooing"
+                        />
+                </LinearLayout>
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_row"
+                    android:padding="5dp"
+
+                    android:text="Dye Stuff"/>
+
+
+                <TextView android:layout_width="match_parent"
+                    android:padding="5dp"
+
+                    android:layout_height="wrap_content"
+                android:id="@+id/dye_stuff"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_row">
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Method of Dyeing"
+                    android:padding="5dp"
+
+                    android:background="@drawable/table_row"
+                    />
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+
+                    android:id="@+id/method_of_dyeing"/>
+
+            </TableRow>
+            <TableRow android:layout_width="match_parent"
+                android:background="@drawable/table_row"
+
+                android:layout_height="wrap_content">
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

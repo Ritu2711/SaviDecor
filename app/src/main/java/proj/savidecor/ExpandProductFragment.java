@@ -55,6 +55,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,12 +82,14 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import proj.savidecor.Models.Combination;
 import proj.savidecor.Models.ItemDetails;
+import proj.savidecor.Models.MaterialDetail;
 import proj.savidecor.Models.Models;
 import proj.savidecor.Models.Option;
 import proj.savidecor.Utils.Apiclient;
 import proj.savidecor.Utils.Constants;
 import proj.savidecor.Utils.ItemAPI;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 import static proj.savidecor.Utils.Constants.retryNum;
@@ -104,6 +107,16 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     String prodNAME, prodSize;
     FrameLayout exRel;
     String imei;
+    List<MaterialDetail> materialList=new ArrayList<>();
+
+    TextView yarn,yarncount,totalweight,totalheight,tuftspersqinch,primarybackingcontent,insectresistance,flammabilitytests,
+            tufting,pilefinish,yarnply,pileweight,pileheight,tuftbindingstrength,secondarybackingcontent,finish,colour_fastedness_light,
+            colour_fastedness_water,colour_fastedness_shampooing,dye_stuff,method_of_dyeing;
+
+
+
+
+    List<MaterialDetail> materialDetails=new ArrayList<>();
     ArrayList<Combination> arrayListComb = new ArrayList<>();
     ImageView expandIMG, manufacture_img, freeshipimg, warrantyimg, lowpriceimg;
     TextView title, price, lprice, sku, smallsize, smallcolor, pInStock, pLongDescription;
@@ -114,6 +127,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     ArrayList alm = new ArrayList();
     ArrayList als = new ArrayList();
     ArrayList alt = new ArrayList();
+
     List<Option> arrayList;
     List<View> allVIEWS = new ArrayList<>();
     List<View> allVIEWS2 = new ArrayList<>();
@@ -142,6 +156,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     private Spinner material;
     private Spinner type;
     private Spinner size;
+    private TableLayout main_table;
 
 
     public ExpandProductFragment() {
@@ -228,6 +243,10 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         Bundle pb = getArguments();
         prodNAME = pb.getString("itemID");
         prodSize = pb.getString("prodSize");
+        alm.add("Select Material");
+        alt.add("Select Type");
+        als.add("Select Size");
+        combinationArrayList.add(new Combination("","",""));
         setHasOptionsMenu(true);
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
@@ -264,6 +283,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                 public void onResponse(final Call<Models> call, Response<Models> response) {
                     try {
                         itemDetailses = response.body().getItem();
+
                         Gson gson = new Gson();
                         Log.e("sub response", " " + gson.toJson(response.body()));
                         Log.e("sub response2", " " + itemDetailses.getOption());
@@ -686,6 +706,14 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     private void init(View view) {
         expandIMG = (ImageView) view.findViewById(R.id.expandIMG);
         title = (TextView) view.findViewById(R.id.title);
+        yarn = (TextView) view.findViewById(R.id.yarn);
+        yarncount = (TextView) view.findViewById(R.id.yarncount);
+        totalweight = (TextView) view.findViewById(R.id.totalweight);
+        totalheight = (TextView) view.findViewById(R.id.totalheight);
+        tuftspersqinch = (TextView) view.findViewById(R.id.tuftspersqinch);
+        primarybackingcontent = (TextView) view.findViewById(R.id.primarybackingcontent);
+        insectresistance = (TextView) view.findViewById(R.id.insectresistance);
+        flammabilitytests = (TextView) view.findViewById(R.id.flammabilitytests);
         price = (TextView) view.findViewById(R.id.price);
         material = (Spinner) view.findViewById(R.id.material);
         type = (Spinner) view.findViewById(R.id.type);
@@ -700,15 +728,34 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         cart = (Button) view.findViewById(R.id.cartbuttons);
         exRel = (FrameLayout) view.findViewById(R.id.exRel);
         linearLayout = (LinearLayout) view.findViewById(R.id.dynamiclin);
+        main_table = (TableLayout) view.findViewById(R.id.main_table);
         optionLayout = view.findViewById(R.id.l3);
-        DescButtonLayout = view.findViewById(R.id.l5);
-/*
-        tabDynamic = (GridLayout) view.findViewById(R.id.tabDyanmic);
-*/
+        //
+        // DescButtonLayout = view.findViewById(R.id.l5);
+       // tabDyanmic = (TableLayout) view.findViewById(R.id.tab_host);
         expandrel = (RelativeLayout) view.findViewById(R.id.expandrel);
         share = (ImageView) view.findViewById(R.id.share);
 
         img = (TouchImageView) view.findViewById(R.id.expanded_image);
+
+        tufting=(TextView) view.findViewById(R.id.tufting);
+        pilefinish=(TextView) view.findViewById(R.id.pilefinish);
+        yarnply=(TextView) view.findViewById(R.id.yarnply);
+        pileweight=(TextView) view.findViewById(R.id.pileweight);
+        pileheight=(TextView) view.findViewById(R.id.pileheight);
+        tuftbindingstrength=(TextView) view.findViewById(R.id.tuftbindingstrength);
+        secondarybackingcontent=(TextView) view.findViewById(R.id.secondarybackingcontent);
+        finish=(TextView) view.findViewById(R.id.finish);
+        colour_fastedness_light=(TextView) view.findViewById(R.id.colour_fastedness_light);
+        colour_fastedness_water=(TextView) view.findViewById(R.id.colour_fastedness_water);
+        colour_fastedness_shampooing=(TextView) view.findViewById(R.id.colour_fastedness_shampooing);
+        dye_stuff=(TextView) view.findViewById(R.id.dye_stuff);
+        method_of_dyeing=(TextView) view.findViewById(R.id.method_of_dyeing);
+
+
+
+
+
         //manufacture_img=(ImageView)view.findViewById(R.id.manufacture_img);
         //<------------------------------------------------------------------------------------------------->
         //This is to be set programmatically
@@ -720,11 +767,23 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                materialselectcion = "" + material.getItemAtPosition(position);
-                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
-                    getMoreData();
-                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
 
+                if (position > 0) {
+                    materialselectcion = "" + material.getItemAtPosition(position);
+
+                    if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                        Log.d("this is error", "material");
+                        getMoreData();
+                        //
+                        Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
+
+                    }
+                    if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()))) {
+                        Log.d("this is error", "material");
+                        getmaterial_details(materialselectcion, typeselection);
+
+
+                    }
                 }
             }
 
@@ -740,13 +799,24 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-                typeselection = "" + type.getItemAtPosition(position);
+                if (position>0) {
+                    typeselection = "" + type.getItemAtPosition(position);
 
 
-                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
-                    getMoreData();
-                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
+                    if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                        Log.d("this is error","type");
+                        getMoreData();
+                        getmaterial_details(materialselectcion,typeselection);
 
+                        Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
+
+                    }
+                    if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()))) {
+
+                        getmaterial_details(materialselectcion,typeselection);
+
+
+                    }
                 }
 
             }
@@ -761,16 +831,17 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         size.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position>0) {
 
+                    sizeselection = "" + size.getItemAtPosition(position);
 
-                sizeselection = "" + size.getItemAtPosition(position);
+                    if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+                        Log.d("this is error","size");
+                        getMoreData();
+                        Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
 
-                if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
-                    getMoreData();
-                    Toast.makeText(getActivity(), "called", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
-
 
             }
 
@@ -789,16 +860,93 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         size.setOnItemSelectedListener(this);*/
     }
 
+    private void getmaterial_details(final String materialselectcion, final String typeselection) {
+
+        optionLayout.setVisibility(View.VISIBLE);
+        Toast.makeText(getActivity(), ""+prodNAME, Toast.LENGTH_SHORT).show();
+        ItemAPI itemAPI = Apiclient.getClient().create(ItemAPI.class);
+        Call<Models> call = itemAPI.getAllItemDetails(prodNAME);
+        call.enqueue(new Constants.BackoffCallback<Models>(retryNum) {
+            @Override
+            public void onResponse(final Call<Models> call, Response<Models> response) {
+                try {
+                    itemDetailses = response.body().getItem();
+                    Gson gson = new Gson();
+                    Log.e("sub response", " " + gson.toJson(response.body()));
+                    Log.e("subdetailss", " " + itemDetailses.getMaterialDetails());
+
+int count=1;
+                    materialDetails=itemDetailses.getMaterialDetails();
+                    for (int i=0;i<materialDetails.size();i++){
+                        count=i;
+                        MaterialDetail materialDetail=materialDetails.get(i);
+                        if ((materialDetail.getYarn().equals(materialselectcion)) && (materialDetail.getTufting().equals(typeselection))){
+
+                            tufting.setText(materialDetail.getTufting());
+                            yarn.setText(materialDetail.getYarn());
+Log.d("afsfa",""+materialDetail.getYarn());
+                            yarncount.setText(materialDetail.getYarnCount());
+                            totalweight.setText(materialDetail.getTotalWeight());
+                            totalheight.setText(materialDetail.getTotalHeight());
+                            tuftspersqinch.setText(materialDetail.getTuftsSqInch());
+                            primarybackingcontent.setText(materialDetail.getPrimaryBackingContent());
+                            insectresistance.setText(materialDetail.getInsectResistance());
+                            flammabilitytests.setText(materialDetail.getFlammabilityTests());
+
+                            pilefinish.setText(materialDetail.getFinish());
+                            yarnply.setText(materialDetail.getYarnPly());
+                            pileheight.setText(materialDetail.getPileHeight());
+                            pileweight.setText(materialDetail.getPileWeight());
+                            tuftbindingstrength.setText(materialDetail.getTuftBindingStrength());
+                            finish.setText(materialDetail.getFinish2());
+                            colour_fastedness_light.setText(materialDetail.getColourFastednessLight());
+                            colour_fastedness_water.setText(materialDetail.getColourFastednessWater());
+                            colour_fastedness_shampooing.setText(materialDetail.getColourFastednessShampooing());
+                            dye_stuff.setText(materialDetail.getDyeStuff());
+                            method_of_dyeing.setText(materialDetail.getMethodOfDyeing());
+
+                        }
+
+
+                    }
+
+
+
+
+                    Toast.makeText(getActivity(), materialselectcion+" "+materialDetails.get(0)+" "+typeselection+" "+sizeselection, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    expandrel.setVisibility(View.INVISIBLE);
+
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailedAfterRetry(Throwable t) {
+                exRel.setVisibility(View.INVISIBLE);
+                Log.e("failure message:", t.getMessage());
+            }
+        });
+
+
+
+
+
+    }
+
     private void getMoreData() {
+        if ((materialselectcion != null && !materialselectcion.isEmpty()) && ((typeselection != null && !typeselection.isEmpty()) && ((sizeselection != null && !sizeselection.isEmpty())))) {
+            Combination searchKey = new Combination(materialselectcion, typeselection, sizeselection);
+            //Combination searchKey = new Combination("Art Silk","Hand Tufted","1x1");
 
-        Combination searchKey = new Combination(materialselectcion, typeselection, sizeselection);
-        //Combination searchKey = new Combination("Art Silk","Hand Tufted","1x1");
+            int index = Collections.binarySearch(combinationArrayList, searchKey, new EmpComp());
+            Combination combination = combinationArrayList.get(index);
+            System.out.println("Index of the searched key: " + combination.getPrice());
+            System.out.println("Index of the searched key: " + index);
+            price.setText(combination.getPrice());
 
-        int index = Collections.binarySearch(combinationArrayList, searchKey, new EmpComp());
-        Combination combination = combinationArrayList.get(index);
-        System.out.println("Index of the searched key: " + combination.getPrice());
-        System.out.println("Index of the searched key: " + index);
-        price.setText(combination.getPrice());
+        }
+
 
     }
 
@@ -849,9 +997,10 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
 
         }
-        material.setPrompt("Select Material");
+       /* material.setPrompt("Select Material");
         type.setPrompt("Select Type");
-        size.setPrompt("Select Size");
+        size.setPrompt("Select Size");*/
+
         material.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, alm));
 
         type.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, alt));
@@ -1283,6 +1432,20 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
                     .append(e1.materia, e2.materia)
                     .append(e1.type, e2.type)
                     .append(e1.size, e2.size)
+                    .toComparison();
+
+        }
+    }
+
+
+    public class MaterialComp implements Comparator<MaterialDetail> {
+
+        public int compare(MaterialDetail e1, MaterialDetail e2) {
+
+            return new CompareToBuilder()
+
+                    .append(e1.getYarn(), e2.getYarn())
+                    .append(e1.getTufting(), e2.getTufting())
                     .toComparison();
 
         }

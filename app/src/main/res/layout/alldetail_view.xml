@@ -8,20 +8,24 @@
         android:id="@+id/expandrel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+    >
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="55dp"
+            android:id="@+id/sc"
+
+android:layout_above="@+id/bt"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarStyle="outsideOverlay"
+            android:layout_weight="1"
+            android:fillViewport="true"
             android:scrollbars="vertical">
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:id="@+id/linprodetaill"
+                android:layout_above="@+id/bt"
                 android:layout_height="wrap_content">
 
 
@@ -32,8 +36,7 @@
                 <include
                     android:id="@+id/l3"
                     layout="@layout/dynamic_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+
                     />
 <!--
                 <include
@@ -43,18 +46,21 @@
                     android:layout_height="wrap_content"
                    />-->
 
-                <include
+                <!--<include
                     android:id="@+id/l5"
                     layout="@layout/tabs_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    />-->
             </LinearLayout>
         </ScrollView>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:id="@+id/bt"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:weightSum="2">
