@@ -37,7 +37,7 @@
                 android:layout_below="@id/solidText"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/badgecolor" />
+                android:background="#2D3648" />
 
             <TextView
                 android:id="@+id/productID"
@@ -179,14 +179,15 @@
 
             <Button
                 android:id="@+id/sButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cLI"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
+                android:background="#2D3648"
                 android:gravity="center"
+
                 android:text="@string/CustomSubmit"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />

@@ -28,6 +28,12 @@
         android:id="@+id/expandIMG"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/ProdFullImg"/>
+        <Gallery
+            android:layout_marginTop="5dp"
+            android:id="@+id/gallery1"
+            android:spacing="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/title"
@@ -130,6 +136,7 @@
                 android:layout_marginTop="4dp"
                 android:textColor="#9b9898"
                 android:textSize="14sp" />
+
             <ImageView
                 android:id="@+id/share"
                 android:layout_gravity="end"

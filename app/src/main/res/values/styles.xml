@@ -62,7 +62,7 @@
 </style>
 
     <style name="WhiteAccent">
-        <item name="colorAccent">#59a4af</item> <!-- Whatever color you want-->
+        <item name="colorAccent">#2D3648</item> <!-- Whatever color you want-->
     </style>
 
     <style name="yourstyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">

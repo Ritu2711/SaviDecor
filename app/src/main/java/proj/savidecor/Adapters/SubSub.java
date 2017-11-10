@@ -47,7 +47,7 @@ public class SubSub extends RecyclerView.Adapter<SubSub.SubViewHolder>{
                         if (datas.getSectionImage().trim().startsWith("http")) {
                             Glide.with(context)
                                     .load(datas.getSectionImage().trim())
-                                    .placeholder(R.drawable.pb_anim)
+                                    .placeholder(R.mipmap.loading)
                                     .error(R.drawable.search)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(holder.iv);
@@ -55,7 +55,7 @@ public class SubSub extends RecyclerView.Adapter<SubSub.SubViewHolder>{
                         else {
                             Glide.with(context)
                                     .load("http:"+datas.getSectionImage().trim())
-                                    .placeholder(R.drawable.pb_anim)
+                                    .placeholder(R.mipmap.loading)
                                     .error(R.drawable.search)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(holder.iv);

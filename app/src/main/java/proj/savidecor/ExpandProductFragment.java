@@ -14,6 +14,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Gallery;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,7 +57,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import proj.savidecor.Adapters.ImageAdapter;
 import proj.savidecor.Models.Combination;
 import proj.savidecor.Models.ItemDetails;
 import proj.savidecor.Models.MaterialDetail;
@@ -89,14 +91,13 @@ import proj.savidecor.Utils.Apiclient;
 import proj.savidecor.Utils.Constants;
 import proj.savidecor.Utils.ItemAPI;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import static proj.savidecor.Utils.Constants.retryNum;
 
 
 public class ExpandProductFragment extends Fragment implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
-
+Gallery gallery;
     private static final int REQUEST_CODE = 1;
     View view;
     SharedPreferences selection;
@@ -107,6 +108,8 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     String prodNAME, prodSize;
     FrameLayout exRel;
     String imei;
+    ArrayList<String>imgarray=new ArrayList<>();
+    TextView t1;
     List<MaterialDetail> materialList=new ArrayList<>();
 
     TextView yarn,yarncount,totalweight,totalheight,tuftspersqinch,primarybackingcontent,insectresistance,flammabilitytests,
@@ -116,10 +119,11 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
 
 
+
     List<MaterialDetail> materialDetails=new ArrayList<>();
     ArrayList<Combination> arrayListComb = new ArrayList<>();
     ImageView expandIMG, manufacture_img, freeshipimg, warrantyimg, lowpriceimg;
-    TextView title, price, lprice, sku, smallsize, smallcolor, pInStock, pLongDescription;
+    TextView title, price, lprice, sku, smallsize, smallcolor, pInStock, pLongDescription,t2;
     AlertDialog alertDialog, choiceAlertDialog, cameraDialog;
     String materialselectcion, typeselection, sizeselection;
     ArrayList<Option> opArray = new ArrayList<>();
@@ -157,6 +161,7 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     private Spinner type;
     private Spinner size;
     private TableLayout main_table;
+    private LinearLayout pCareInstruction,pShippingInfo;
 
 
     public ExpandProductFragment() {
@@ -704,10 +709,18 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
     }
 
     private void init(View view) {
+        gallery = (Gallery) view.findViewById(R.id.gallery1);
         expandIMG = (ImageView) view.findViewById(R.id.expandIMG);
         title = (TextView) view.findViewById(R.id.title);
         yarn = (TextView) view.findViewById(R.id.yarn);
         yarncount = (TextView) view.findViewById(R.id.yarncount);
+        t1 = (TextView) view.findViewById(R.id.t1);
+        t2 = (TextView) view.findViewById(R.id.t2);
+        Drawable img2 = getContext().getResources().getDrawable( R.mipmap.downarrow );
+        img2.setBounds( 0, 0, 60, 60 );
+        t1.setCompoundDrawables( img2, null, null, null );
+        t2.setCompoundDrawables( img2, null, null, null );
+
         totalweight = (TextView) view.findViewById(R.id.totalweight);
         totalheight = (TextView) view.findViewById(R.id.totalheight);
         tuftspersqinch = (TextView) view.findViewById(R.id.tuftspersqinch);
@@ -720,6 +733,8 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
         size = (Spinner) view.findViewById(R.id.size);
         lprice = (TextView) view.findViewById(R.id.lprice);
         pLongDescription = (TextView) view.findViewById(R.id.pLongDescription);
+        pCareInstruction = (LinearLayout) view.findViewById(R.id.pCareInstruction);
+        pShippingInfo = (LinearLayout) view.findViewById(R.id.pShippingInfo);
         sku = (TextView) view.findViewById(R.id.sku);
         smallcolor = (TextView) view.findViewById(R.id.smallcolor);
         smallsize = (TextView) view.findViewById(R.id.smallsize);
@@ -754,14 +769,66 @@ public class ExpandProductFragment extends Fragment implements AdapterView.OnIte
 
 
 
+        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position,long id)
+            {
 
+                // display the images selected
+
+                Glide.with(getActivity()).load(imgarray.get(position)).into(expandIMG);
+            }
+        });
 
         //manufacture_img=(ImageView)view.findViewById(R.id.manufacture_img);
         //<------------------------------------------------------------------------------------------------->
         //This is to be set programmatically
         //cart.setBackgroundColor(Color.CYAN);
         // <------------------------------------------------------------------------------------------------->
+t1.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        int height = 0;
+        if(pCareInstruction.getVisibility() == View.VISIBLE){
+            Drawable img = getContext().getResources().getDrawable( R.mipmap.uparrow );
+            img.setBounds( 0, 0, 60, 60 );
+            t1.setCompoundDrawables( img, null, null, null );
+            MyCustomAnimation a = new MyCustomAnimation(pCareInstruction, 1000, MyCustomAnimation.COLLAPSE);
+            height = a.getHeight();
+            pCareInstruction.startAnimation(a);
+        }else{
+            MyCustomAnimation a = new MyCustomAnimation(pCareInstruction, 1000, MyCustomAnimation.EXPAND);
+            a.setHeight(height);
+            Drawable img = getContext().getResources().getDrawable( R.mipmap.downarrow );
+            img.setBounds( 0, 0, 60, 60 );
+            t1.setCompoundDrawables( img, null, null, null );
+            pCareInstruction.startAnimation(a);
+        }
+    }
+});
 
+
+
+        t2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int height = 0;
+                if(pShippingInfo.getVisibility() == View.VISIBLE){
+                    Drawable img = getContext().getResources().getDrawable( R.mipmap.uparrow );
+                    img.setBounds( 0, 0, 60, 60 );
+                    t2.setCompoundDrawables( img, null, null, null );
+                    MyCustomAnimation a = new MyCustomAnimation(pShippingInfo, 1000, MyCustomAnimation.COLLAPSE);
+                    height = a.getHeight();
+                    pShippingInfo.startAnimation(a);
+                }else{
+                    MyCustomAnimation a = new MyCustomAnimation(pShippingInfo, 1000, MyCustomAnimation.EXPAND);
+                    a.setHeight(height);
+                    Drawable img = getContext().getResources().getDrawable( R.mipmap.downarrow );
+                    img.setBounds( 0, 0, 60, 60 );
+                    t2.setCompoundDrawables( img, null, null, null );
+                    pShippingInfo.startAnimation(a);
+                }
+            }
+        });
 
         material.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -950,6 +1017,7 @@ Log.d("afsfa",""+materialDetail.getYarn());
 
     }
 
+
     private void setDATA() {
 
         try {
@@ -962,6 +1030,48 @@ Log.d("afsfa",""+materialDetail.getYarn());
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "Rupee_Foradian.ttf");
         price.setTypeface(face);
         arrayList = itemDetailses.getOption();
+
+        Log.d("myarrayy",""+itemDetailses.getImageSrc2().size());
+
+for (int i=0;i<itemDetailses.getImageSrc2().size();i++){
+
+    imgarray.add(itemDetailses.getImageSrc2().get(i));
+
+}
+
+        gallery.setAdapter(new ImageAdapter(getActivity(),imgarray));
+
+        Log.d("Hellllo",itemDetailses.getCareInstruction());
+        String data=itemDetailses.getCareInstruction();
+        String[] parts = data.split("\\\n");
+        for (int i=0;i<parts.length;i++) {
+            TextView text = new TextView(getActivity());
+            text.setText(parts[i].replaceAll("^\\s+", "").replaceAll("\\s+$", "")+"\n"); // <-- does it really compile without the + sign?
+            text.setTextSize(12);
+            text.setGravity(Gravity.LEFT);
+            text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            pCareInstruction.addView(text);
+
+
+        }
+
+
+
+        Log.d("Hellllo",itemDetailses.getShippingInfo());
+        String shipdata=itemDetailses.getShippingInfo();
+        String[] shipparts = shipdata.split("\\\n");
+        for (int i=0;i<shipparts.length;i++) {
+            TextView text = new TextView(getActivity());
+            text.setText(shipparts[i].replaceAll("^\\s+", "").replaceAll("\\s+$", "")+"\n"); // <-- does it really compile without the + sign?
+            text.setTextSize(12);
+            text.setGravity(Gravity.LEFT);
+            text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            pShippingInfo.addView(text);
+
+
+        }
+     //   System.getProperty("line.separator");
+        //makeTextViewResizable(pCareInstruction, 2, "View More", true);
 
 
         if (arrayList.size() == 0) {
@@ -1078,7 +1188,7 @@ Log.d("afsfa",""+materialDetail.getYarn());
             if (itemDetailses.getImageSrc().trim().startsWith("http")) {
                 Glide.with(getContext())
                         .load(itemDetailses.getImageSrc().trim())
-                        .placeholder(R.drawable.pb_animview)
+                        .placeholder(R.mipmap.placeholder)
                         .error(R.drawable.search)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(new RequestListener<String, GlideDrawable>() {
@@ -1097,7 +1207,7 @@ Log.d("afsfa",""+materialDetail.getYarn());
             } else {
                 Glide.with(getContext())
                         .load("http:" + itemDetailses.getImageSrc().trim())
-                        .placeholder(R.drawable.pb_animview)
+                        .placeholder(R.mipmap.placeholder)
                         .error(R.drawable.search)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(new RequestListener<String, GlideDrawable>() {

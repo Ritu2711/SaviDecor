@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +67,7 @@ public class Splash extends AppCompatActivity {
         rel_splash_background = (RelativeLayout) findViewById(R.id.rel_splash_background);
         ProgressBar pbd = (ProgressBar) findViewById(R.id.splashPBD);
 
+
         splashTitle = (ImageView) findViewById(R.id.splashtop);
         splashBackground = (ImageView) findViewById(R.id.splash_screen_background);
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -77,17 +79,19 @@ public class Splash extends AppCompatActivity {
 
 
         sharedPreferences = getSharedPreferences("VIEW", MODE_PRIVATE);
-        Glide.with(this).load(sharedPreferences.getString(Constants.SplashTitle, "")).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(splashTitle);
-        Glide.with(this).load(sharedPreferences.getString(Constants.SplashBackground, "")).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(splashBackground);
+        Glide.with(this).load("http://www.savidecor.com/img/logo-icon.png").diskCacheStrategy(DiskCacheStrategy.SOURCE).into(splashTitle);
+        Glide.with(this).load("http://www.savidecor.com/img/banners/new-contemporary-rug.jpg").centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(splashBackground);
 
 
         try {
             pbd.getIndeterminateDrawable().setColorFilter(Color.parseColor("#59a4af"), PorterDuff.Mode.SRC_ATOP);
-            String text = "<font color='#59a4af'>SHOP FROM </font><font color='#00000'>OUR UNIQUE COLLECTION</font>";
+            String text = "<font color='#59a4af'>SHOP FROM </font><font color='#ffffff'>OUR UNIQUE COLLECTION</font>";
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 splashtv.setText(Html.fromHtml(text, 0), TextView.BufferType.SPANNABLE);
+                splashtv.setTextColor(Color.WHITE);
             } else {
+                splashtv.setTextColor(Color.WHITE);
                 //noinspection deprecation
                 splashtv.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
             }
@@ -104,9 +108,19 @@ public class Splash extends AppCompatActivity {
             try {
 //                fetchSetup();
                 //fetchImage();
-                Intent mainact = new Intent(Splash.this, MainActivity.class);
-                mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(mainact);
+                Handler handler=new Handler();
+                handler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Intent mainact = new Intent(Splash.this, MainActivity.class);
+                                mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainact);
+                            }
+                        }
+                ,5000);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -156,9 +170,18 @@ public class Splash extends AppCompatActivity {
 
 //            fetchSetup();
             //fetchImage();
-            Intent mainact = new Intent(Splash.this, MainActivity.class);
-            mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(mainact);
+            Handler handler=new Handler();
+            handler.postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Intent mainact = new Intent(Splash.this, MainActivity.class);
+                            mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(mainact);
+                        }
+                    }
+                    ,5000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,9 +229,18 @@ public class Splash extends AppCompatActivity {
                     imei = telephonyManager.getDeviceId();
                     try {
 //                        fetchSetup();
-                        Intent mainact = new Intent(Splash.this, MainActivity.class);
-                        mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(mainact);
+                        Handler handler=new Handler();
+                        handler.postDelayed(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Intent mainact = new Intent(Splash.this, MainActivity.class);
+                                        mainact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(mainact);
+                                    }
+                                }
+                                ,5000);
                     } catch (Exception e) {
                         Log.w("WAHH3", e.getMessage());
                     }

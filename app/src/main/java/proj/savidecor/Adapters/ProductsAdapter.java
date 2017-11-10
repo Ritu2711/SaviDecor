@@ -95,7 +95,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MovieV
            if (prod.getImageSrc().trim().startsWith("http")){
                Glide.with(context)
                        .load(prod.getImageSrc().trim())
-                       .placeholder(R.drawable.pb_animview)
+                       .placeholder(R.mipmap.loading)
                        .error(R.drawable.search)
                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                        .into(holder.iv);
@@ -103,7 +103,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MovieV
            else {
                    Glide.with(context)
                            .load("https:" + prod.getImageSrc().trim())
-                           .placeholder(R.drawable.pb_animview)
+                           .placeholder(R.mipmap.loading)
                            .error(R.drawable.search)
                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                            .into(holder.iv);

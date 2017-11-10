@@ -40,6 +40,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements AppFragment.Fragm
             }
         });
 
-       String sActionBarColor = "#59a4af";
+       String sActionBarColor = "#2D3648";
 
 
         assert getSupportActionBar() != null;
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements AppFragment.Fragm
         //getSupportActionBar().setIcon(R.drawable.favicon);
 //        getSupportActionBar().setLogo(R.drawable.favicon);
 
-        Glide.with(this).load(sToolbarIcon).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivLogo);
+        Glide.with(this).load("http://www.savidecor.com/img/logo-icon.png").override(200,100).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivLogo);
         Glide.with(this).load(sToolbarBg).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivToolbarBackground);
       toolbar.setBackgroundColor(Color.parseColor(sActionBarColor));
 
@@ -493,6 +494,9 @@ public class MainActivity extends AppCompatActivity implements AppFragment.Fragm
         Bundle arg = new Bundle();
         arg.putString("itemID", itemID);
         arg.putString("prodSize", prodSize);
+
+
+
         fragment3.setArguments(arg);
 
         if (fragment3 != null) {

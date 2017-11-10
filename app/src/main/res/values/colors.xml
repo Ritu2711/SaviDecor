@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#59a4af</color>
+    <color name="colorPrimary">#2D3648</color>
     <color name="colorPrimaryDark">#555656</color>
     <color name="colorAccent">#00BCD4</color>
     <color name="colorLightColor">#CFD8DC</color>
@@ -10,7 +10,7 @@
     <color name="black">#000000</color>
     <color name="selected">#BDBDBD</color>
     <color name="badgecolor">#ef5350</color>
-    <color name="colorButtonNormal">#59a4af</color>
-    <color name="colorControlHighlight">#59a4af</color>
+    <color name="colorButtonNormal">#2D3648</color>
+    <color name="colorControlHighlight">#2D3648</color>
     <color name="fifty_percent_transparency_grey_400">#80bdbdbd</color>
 </resources>

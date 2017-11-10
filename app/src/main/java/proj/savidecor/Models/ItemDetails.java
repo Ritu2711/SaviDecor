@@ -198,7 +198,16 @@ public class ItemDetails {
     public List<MaterialDetail> getMaterialDetails() {
         return materialDetails;
     }
+    @SerializedName("imageSrc2")
+    @Expose
+    private ArrayList<String> imageSrc2 = null;
+    public ArrayList<String> getImageSrc2() {
+        return imageSrc2;
+    }
 
+    public void setImageSrc2(ArrayList<String> imageSrc2) {
+        this.imageSrc2 = imageSrc2;
+    }
     public String getCareInstruction() {
         return careInstruction;
     }
@@ -233,6 +242,7 @@ public class ItemDetails {
                 ", price_range='" + careInstruction + '\'' +
                 ", price_range='" + shippingInfo + '\'' +
                 ", option=" + option +
+                ", imageSrc2=" + imageSrc2 +
                 '}';
     }
 }

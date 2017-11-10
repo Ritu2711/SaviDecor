@@ -33,11 +33,59 @@ android:layout_above="@+id/bt"
                     android:id="@+id/l1"
                     layout="@layout/productexpand_items" />
 
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="match_parent"
+                    android:text="CARE INSTRUCTIONS"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/buttonborder"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/pCareInstruction"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#9b9898"
+                    android:textSize="14sp" >
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="match_parent"
+                    android:text="SHIPPING INFO"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/buttonborder"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:id="@+id/pShippingInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#9b9898"
+                    android:textSize="14sp" >
+
+
+                </LinearLayout>
                 <include
                     android:id="@+id/l3"
                     layout="@layout/dynamic_view"
 
                     />
+
 <!--
                 <include
                     android:id="@+id/l4"
@@ -75,9 +123,10 @@ android:layout_above="@+id/bt"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonbg"
+                android:background="#2D3648"
                 android:text="@string/addtocart"
-                android:textColor="@color/black" />
+                android:hapticFeedbackEnabled="true"
+                android:textColor="@android:color/white" />
 
             <View
                 android:id="@+id/nullview"
@@ -94,9 +143,10 @@ android:layout_above="@+id/bt"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonbg"
+                android:background="#2D3648"
                 android:text="@string/customize"
-                android:textColor="@color/black" />
+                android:hapticFeedbackEnabled="true"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

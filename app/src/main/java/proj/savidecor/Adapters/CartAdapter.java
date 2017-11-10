@@ -79,7 +79,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 if (prodCART.getImageSrc().trim().startsWith("http")){
                     Glide.with(context)
                             .load(prodCART.getImageSrc().trim())
-                            .placeholder(R.drawable.pb_anim)
+                            .placeholder(R.mipmap.loading)
                             .error(R.drawable.search)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(holder.cartIV);
@@ -87,7 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                 else {
                     Glide.with(context)
                             .load("http:"+prodCART.getImageSrc().trim())
-                            .placeholder(R.drawable.pb_anim)
+                            .placeholder(R.mipmap.loading)
                             .error(R.drawable.search)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(holder.cartIV);

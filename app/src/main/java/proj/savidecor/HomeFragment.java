@@ -68,7 +68,7 @@ ImageButton scrollup;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("VIEW", Context.MODE_PRIVATE);
-        rID = sharedPreferences.getInt(Constants.RANDOMID, 0);
+        rID = sharedPreferences.getInt(Constants.RANDOMID, 2);
         Log.e("rid", "" + rID);
         stickyMSG = sharedPreferences.getString(Constants.STICKYMSG, "");
     }
